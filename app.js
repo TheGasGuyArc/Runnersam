@@ -1,0 +1,17 @@
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+let xp=1240, running=false, seconds=0, steps=0, dist=0, energy=82, timer;
+window.addEventListener("load",()=>setTimeout(()=>$("#boot").classList.add("hide"),1500));
+$$("[data-go]").forEach(b=>b.onclick=()=>{const id=b.dataset.go;$$(".screen").forEach(s=>s.classList.remove("active"));$("#"+id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"});if(id==="market")draw()});
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),2200)}
+function modal(title,text,action="ENTER"){ $("#modalTitle").textContent=title;$("#modalText").textContent=text;$("#modalAction").textContent=action;$("#modal").classList.add("open")}
+$("#close").onclick=()=>$("#modal").classList.remove("open");$("#modal").onclick=e=>{if(e.target.id==="modal")$("#modal").classList.remove("open")};
+$$(".district").forEach(d=>d.onclick=()=>modal(d.dataset.district,"Zone unlocked. Complete the route here to earn XP and discover city caches.","ENTER DISTRICT"));
+$$(".chest").forEach(c=>c.onclick=()=>{xp+=150;$("#xp").textContent=xp.toLocaleString();$("#boardxp").textContent=xp.toLocaleString();c.style.display="none";$("#q2").style.width="100%";toast("+150 XP  •  CACHE COLLECTED")});
+$("#runBtn").onclick=()=>{running=!running;$("#runBtn").textContent=running?"STOP RUN":"START RUN";$("#runBtn").classList.toggle("running",running);$("#runState").textContent=running?"RUNNING":"READY";if(running){timer=setInterval(()=>{seconds++;steps+=2;dist+=.0018;energy=Math.max(0,energy-.02);$("#timer").textContent=new Date(seconds*1000).toISOString().slice(14,19);$("#steps").textContent=steps;$("#distance").textContent=dist.toFixed(2)+" km";$("#energy").textContent=Math.round(energy)+"%"},1000)}else{clearInterval(timer);xp+=Math.floor(dist*100);$("#xp").textContent=xp.toLocaleString();$("#boardxp").textContent=xp.toLocaleString();$("#q1").style.width="100%";toast("+XP  •  RUN SAVED")}};
+$("#wallet").onclick=()=>modal("WALLET","Demo connection only. Production build can connect an Injective-compatible wallet here. No private keys are requested.","CONNECT DEMO");
+$("#modalAction").onclick=()=>{ $("#modal").classList.remove("open");toast("INTERFACE ACTION CONFIRMED") };
+$("#gps").onclick=()=>toast("LOCATION PERMISSION IS OPTIONAL • TEST MODE ACTIVE");
+$("#testMode").onclick=()=>toast("TEST MODE • CITY ROUTES ARE SIMULATED");
+$$(".quest-btn").forEach(b=>b.onclick=()=>{const q=b.dataset.quest;if(q==="1"){$("#map").classList.add("active");$("#quests").classList.remove("active");$("#runBtn").click()}else if(q==="2")toast("2 CHESTS ARE HIDDEN ON THE MAP");else {$("#market").classList.add("active");$("#quests").classList.remove("active");draw()}});
+const cv=$("#chart"),ctx=cv.getContext("2d");function draw(){let w=cv.clientWidth*devicePixelRatio,h=310*devicePixelRatio;cv.width=w;cv.height=h;ctx.clearRect(0,0,w,h);let p=[];for(let i=0;i<55;i++)p.push(.5+Math.sin(i*.35)*.14+(Math.random()-.5)*.1+i*.003);ctx.beginPath();p.forEach((v,i)=>{let x=i*w/(p.length-1),y=h-(v-.25)*h*.8;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.strokeStyle="#ff4b40";ctx.lineWidth=2*devicePixelRatio;ctx.stroke();ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.closePath();ctx.fillStyle="rgba(255,59,48,.08)";ctx.fill();}draw();setInterval(()=>{let price=13.42+(Math.random()-.45)*.16;$("#price").textContent="$"+price.toFixed(2)},1800);
+window.addEventListener("resize",draw);

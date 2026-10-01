@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RUNNERS — Injective City</title>
+<meta name="theme-color" content="#07090d">
+<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<div id="boot" class="boot"><div class="boot-logo">RUNNERS<span>.</span></div><div class="boot-line"><i></i></div><small>CONNECTING TO INJECTIVE CITY</small></div>
+
+<header class="topbar">
+  <button class="brand" data-go="map"><b>R</b><span>RUNNERS</span></button>
+  <nav>
+    <button data-go="map">MAP</button><button data-go="quests">QUESTS</button><button data-go="market">MARKET</button><button data-go="leaderboard">LEADERBOARD</button>
+  </nav>
+  <button id="wallet" class="wallet">CONNECT WALLET</button>
+</header>
+
+<main>
+<section id="map" class="screen active">
+  <div class="hud">
+    <div><span class="eyebrow">INJECTIVE CITY</span><h1>RUN THE MARKET.</h1><p>Walk the city. Find chests. Complete runs. Build your runner.</p></div>
+    <div class="hud-stats"><div><small>ENERGY</small><strong id="energy">82%</strong></div><div><small>XP</small><strong id="xp">1,240</strong></div><div><small>RANK</small><strong>#084</strong></div></div>
+  </div>
+  <div class="city-wrap">
+    <div class="map-toolbar"><button id="testMode" class="pill active">TEST MODE</button><button id="gps" class="pill">LOCATE ME</button><span id="runState">READY</span></div>
+    <div id="city" class="city">
+      <div class="grid"></div><div class="road r1"></div><div class="road r2"></div><div class="road r3"></div>
+      <div class="district d1" data-district="Exchange"><b>01</b><span>THE EXCHANGE</span><small>MARKET SQUARE</small></div>
+      <div class="district d2" data-district="Perp District"><b>02</b><span>PERP DISTRICT</span><small>HIGH VOLATILITY</small></div>
+      <div class="district d3" data-district="RunUp Terminal"><b>03</b><span>RUNUP TERMINAL</span><small>LAUNCH ZONE</small></div>
+      <div class="district d4" data-district="Vault"><b>04</b><span>THE VAULT</span><small>RARE FINDS</small></div>
+      <div class="runner" id="runner"><div class="runner-ring"></div><div class="runner-body"><i></i><i></i></div><span>YOU</span></div>
+      <button class="chest c1" data-chest="Supply Cache">◆</button><button class="chest c2" data-chest="Market Chest">◆</button><button class="chest c3" data-chest="Vault Cache">◆</button>
+    </div>
+    <div class="runbar"><div><small>RUN</small><strong id="timer">00:00</strong></div><div><small>DISTANCE</small><strong id="distance">0.00 km</strong></div><div><small>STEPS</small><strong id="steps">0</strong></div><button id="runBtn">START RUN</button></div>
+  </div>
+</section>
+
+<section id="quests" class="screen">
+  <div class="section-head"><span class="eyebrow">DAILY LOOP</span><h2>QUEST BOARD</h2><p>Every run should leave a mark.</p></div>
+  <div class="quest-grid">
+    <article class="quest"><div class="qtop"><span>01</span><b>FIRST LAP</b><em>+250 XP</em></div><p>Complete your first run of the day.</p><div class="progress"><i style="width:0%" id="q1"></i></div><button class="quest-btn" data-quest="1">RUN IT</button></article>
+    <article class="quest"><div class="qtop"><span>02</span><b>CHEST HUNTER</b><em>+400 XP</em></div><p>Collect 2 hidden city caches.</p><div class="progress"><i style="width:50%" id="q2"></i></div><button class="quest-btn" data-quest="2">HUNT</button></article>
+    <article class="quest"><div class="qtop"><span>03</span><b>MARKET WATCH</b><em>+300 XP</em></div><p>Visit The Exchange and check the market.</p><div class="progress"><i style="width:0%" id="q3"></i></div><button class="quest-btn" data-quest="3">CHECK MARKET</button></article>
+  </div>
+</section>
+
+<section id="market" class="screen">
+  <div class="section-head"><span class="eyebrow">CITY TICKER</span><h2>MARKET</h2><p>Demo feed for the interface. Connect real Injective data here.</p></div>
+  <div class="market-layout">
+    <div class="terminal">
+      <div class="terminal-head"><span>INJ / USDT</span><b id="price">$13.42</b><em id="change">+2.84%</em></div>
+      <canvas id="chart"></canvas>
+      <div class="ticker-row"><span>24H HIGH <b>$13.98</b></span><span>24H LOW <b>$12.61</b></span><span>VOL <b>$48.2M</b></span></div>
+    </div>
+    <div class="feed"><h3>CITY ACTIVITY</h3><div class="feed-item"><b>RUNNER_084</b><span>entered The Exchange</span><time>NOW</time></div><div class="feed-item"><b>RUNNER_311</b><span>opened a Market Chest</span><time>2M</time></div><div class="feed-item"><b>RUNNER_019</b><span>started a 5km run</span><time>4M</time></div><div class="feed-item"><b>RUNUP</b><span>terminal pulse detected</span><time>7M</time></div></div>
+  </div>
+</section>
+
+<section id="leaderboard" class="screen">
+  <div class="section-head"><span class="eyebrow">CITY RANKING</span><h2>LEADERBOARD</h2><p>Distance, XP and consistency put runners on the board.</p></div>
+  <div class="board"><div class="board-head"><span>RANK</span><span>RUNNER</span><span>XP</span><span>DISTANCE</span></div>
+  <div class="row you"><span>#084</span><b>YOU</b><strong id="boardxp">1,240</strong><span>12.4 km</span></div>
+  <div class="row"><span>#001</span><b>NEONFOX</b><strong>9,820</strong><span>84.1 km</span></div><div class="row"><span>#012</span><b>ARCWALKER</b><strong>7,410</strong><span>61.7 km</span></div><div class="row"><span>#027</span><b>RUNNER_27</b><strong>5,940</strong><span>48.2 km</span></div><div class="row"><span>#041</span><b>FASTLANE</b><strong>4,830</strong><span>39.4 km</span></div></div>
+</section>
+</main>
+
+<div id="modal" class="modal"><div class="modal-card"><button id="close" class="close">×</button><span class="eyebrow" id="modalEyebrow">CITY EVENT</span><h3 id="modalTitle">The Exchange</h3><p id="modalText"></p><button id="modalAction" class="primary">ENTER</button></div></div>
+<div id="toast"></div>
+<footer>RUNNERS <span>×</span> INJECTIVE CITY <small>interface prototype · no private keys · demo market feed</small></footer>
+<script src="./js/app.js"></script>
+</body></html>
